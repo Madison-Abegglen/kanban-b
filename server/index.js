@@ -28,3 +28,18 @@ server.use('*', (req, res, next) => {
   next()
 })
 
+let boardRoutes = require('./server-assets/routes/board-routes')
+let listRoutes = require('./server-assets/routes/list-routes')
+let taskRoutes = require('./server-assets/routes/task-routes')
+
+server.use('/api/boards', boardRoutes)
+server.use('/api/lists', listRoutes)
+server.use('/api/tasks', taskRoutes)
+
+server.use('*', (req, res, next) => {
+  res.status(error.status || 400).send({ message: error.message })
+})
+
+server.listen(PORT, () => {
+  console.log("SERVER RUNNING ON PORT: ", PORT)
+})
