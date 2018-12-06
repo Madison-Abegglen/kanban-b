@@ -1,5 +1,5 @@
 let router = require('express').Router()
-let Users = requrie('../models/user')
+let Users = require('../models/user')
 let session = require('./session')
 
 // authenticate the session token
@@ -7,7 +7,7 @@ router.get('/authenticate', (req, res, next) => {
   if (!req.session.uid) {
     return next(new Error('Invalid Credentials'))
   }
-  Users.findById(req.session.uid)
+  Users.findOne(req.session.uid)
     .then(user => {
       delete user._doc.hash
       res.send(user)
@@ -32,15 +32,25 @@ router.post('/login', (req, res, next) => {
 
 // register & create a new session
 router.post('/register', (req, res, next) => {
-  let hash = Users.hashPassword(req.body.password)
-  Users.create({ email: req.body.email, hash })
+  // validates password length
+  if (req.body.password.length < 8) {
+    return res.status(401).send({
+      error: 'Password must be at least 8 characters'
+    })
+  }
+  // hash password
+  req.body.password = Users.generateHash(req.body.password)
+  Users.create(req.body)
     .then(user => {
+      // remove password before returning
       delete user._doc.hash
+      // set session uid
       req.session.uid = user._id
       res.send(user)
     })
     .catch(err => {
-      next(new Error('Invalid Username or Password'))
+      console.log('[REGISTER ERROR]', error)
+      next(new Error('Unable to register'))
     })
 })
 

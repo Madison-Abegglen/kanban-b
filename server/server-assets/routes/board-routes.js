@@ -3,7 +3,7 @@ const Boards = require('../models/board')
 
 // GET
 router.get('/', (req, res, next) => {
-  Boards.find({ authorId: req.session.uid })
+  Boards.findOne({ authorId: req.session.uid })
     .then(data => {
       res.send(data)
     })
@@ -38,7 +38,12 @@ router.put('/:id', (req, res, next) => {
           console.log('[BOARD ERROR]', error)
           next(error)
         }
+        res.send({ message: 'Successfully Updated Board: ', board })
       })
+    })
+    .catch(error => {
+      console.log('[BOARD ERROR]', error)
+      next(error)
     })
 })
 

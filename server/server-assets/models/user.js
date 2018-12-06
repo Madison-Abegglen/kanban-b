@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const bcrypt = requrie('bcryptjs')
+const bcrypt = require('bcryptjs')
 const SALT = 10
 
 const schema = new Schema({
@@ -18,7 +18,7 @@ schema.statics.generateHash = function (password) {
 }
 
 // schema.methods are used to add a method to a model instance
-schema.method.validatePassword = function (password) {
+schema.methods.validatePassword = function (password) {
   return bcrypt.compareSync(password, this.password)
 }
 
