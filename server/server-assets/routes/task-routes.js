@@ -48,8 +48,10 @@ router.delete('/:id', (req, res, next) => {
 // ----- COMMENTS REQ'S -----
 // GET
 router.get('/comments/:taskId', (req, res, next) => {
-  Tasks.find({ taskId: req.params.taskId })
-    .then(task => res.send(task.comments))
+  Tasks.findById({ _id: req.params.taskId })
+    .then(task => {
+      res.send(task.comments)
+    })
     .catch(error => {
       console.log('[GET TASK COMMENTS ERROR]', error)
       next(error)
@@ -79,7 +81,18 @@ router.post('/comments/:taskId', (req, res, next) => {
 router.delete('/comments/:taskId/:commentId', (req, res, next) => {
   Tasks.findById(req.params.taskId)
     .then(task => {
-      task.comments = task.comments.filter(comment => comment._id !== commentId)
+      if (!task) {
+        return (new Error({ message: 'Wrong task' }))
+      }
+      let comment = task.comments.id(req.params.commentId)
+      if (comment) {
+        comment.remove(error => {
+          if (error) {
+            return next(error)
+          }
+
+        })
+      }
       task.save(error => {
         if (error) {
           return next(error)
