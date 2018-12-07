@@ -5,11 +5,13 @@
         <div class="col-12 title-p">
           <h1 class="txt-1">
             K
-            <i class="fas fa-angle-double-up" style="margin: 0; padding-right: 6px;"></i>nban.
+            <i class="fas fa-angle-double-up" style="padding-right: 6px;"></i>nban.
           </h1>
         </div>
       </div>
-      <div class="row mid-r"></div>
+      <div class="row mid-r">
+        <RegLogForm></RegLogForm>
+      </div>
       <div class="row bottom-r"></div>
     </div>
   </div>
@@ -17,10 +19,13 @@
 
 <script>
 // @ is an alias to /src
+import RegLogForm from "@/components/RegLogForm.vue";
 
 export default {
   name: "home",
-  components: {}
+  components: {
+    RegLogForm
+  }
 };
 </script>
 
