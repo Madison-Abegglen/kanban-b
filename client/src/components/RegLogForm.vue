@@ -19,8 +19,8 @@
         </label>
         <input type="text" name="password" class="input" v-model="password">
       </div>
-      <button type="submit" class="btn btn-info">{{ isLogin ? 'Login' : 'Register'}}</button>
-      <button type="button" class="btn btn-info">Switch to {{isLogin ? 'Signup' : 'Login'}}</button>
+      <button type="submit" class="btn btn-danger">{{ isLogin ? 'Login' : 'Register'}}</button>
+      <button type="button" class="btn btn-danger">Switch to {{isLogin ? 'Signup' : 'Login'}}</button>
     </form>
   </div>
 </template>
@@ -48,6 +48,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: rgb(117, 117, 117, 0.5);
 }
 .form {
   height: 40vh;
@@ -56,15 +57,18 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(117, 117, 117, 0.5);
+  background: rgb(250, 250, 250, 0.8);
 }
 .form-group {
   display: flex;
   flex-direction: row;
 }
-.btn-info {
+.btn-danger {
   border-radius: 0;
   margin: 3px;
-  width: 60%;
+  width: 30vw;
+}
+.input {
+  width: 28vw;
 }
 </style>
