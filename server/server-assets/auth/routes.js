@@ -33,13 +33,14 @@ router.post('/login', (req, res, next) => {
 // register & create a new session
 router.post('/register', (req, res, next) => {
   // validates password length
+  console.log('Register Route')
   if (req.body.password.length < 8) {
     return res.status(401).send({
       error: 'Password must be at least 8 characters'
     })
   }
   // hash password
-  req.body.password = Users.generateHash(req.body.password)
+  req.body.hash = Users.generateHash(req.body.password)
   Users.create(req.body)
     .then(user => {
       // remove password before returning

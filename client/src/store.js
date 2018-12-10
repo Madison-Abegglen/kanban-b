@@ -33,7 +33,7 @@ export default new Vuex.Store({
           commit('setUser', res.data)
         })
         .catch(error => {
-          console.log('Register Error:', error)
+          console.log('Register Error -', error)
           alert(error)
         })
     },
@@ -44,7 +44,7 @@ export default new Vuex.Store({
           router.push({ name: 'boards' })
         })
         .catch(error => {
-          console.log('Login Error:', error)
+          console.log('Login Error -', error)
           alert(error)
         })
     },
