@@ -50,7 +50,7 @@ router.post('/register', (req, res, next) => {
       res.send(user)
     })
     .catch(err => {
-      console.log('[REGISTER ERROR]', error)
+      console.log('[REGISTER ERROR]', err)
       next(new Error('Unable to register'))
     })
 })
