@@ -1,27 +1,32 @@
 <template>
-  <div class="col-6 offset-3 form-p">
-    <form @submit.prevent class="form">
-      <div class="form-group" v-if="!isLogin">
-        <label for="name">
-          <i class="fas fa-user-circle"></i>
-        </label>
-        <input type="text" name="name" class="input" v-model="name">
-      </div>
-      <div class="form-group">
-        <label for="email">
-          <i class="fas fa-at"></i>
-        </label>
-        <input type="text" name="email" class="input" v-model="email">
-      </div>
-      <div class="form-group">
-        <label for="password">
-          <i class="fas fa-lock"></i>
-        </label>
-        <input type="text" name="password" class="input" v-model="password">
-      </div>
-      <button type="submit" class="btn btn-danger">{{ isLogin ? 'Login' : 'Register'}}</button>
-      <button type="button" class="btn btn-danger">Switch to {{isLogin ? 'Signup' : 'Login'}}</button>
-    </form>
+  <div class="col-8 offset-2 form-p">
+    <b-form @submit.prevent class="form">
+      <b-form-group label="<i class='fas fa-user-circle'></i> Name" v-if="!isLogin">
+        <!-- <i class="fas fa-user-circle"></i>         -->
+        <b-form-input type="text" class="input" v-model="name"></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="<i class='fas fa-at'></i> Email">
+        <b-form-input type="email" class="input" v-model="email"></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="<i class='fas fa-lock'></i> Password">
+        <!-- <i class="fas fa-lock"></i> -->
+        <b-form-input type="password" class="input" v-model="password"></b-form-input>
+      </b-form-group>
+
+      <b-button
+        type="submit"
+        class="btn btn-danger"
+        @click="submitForm"
+      >{{ isLogin ? 'Login' : 'Register'}}</b-button>
+
+      <b-button
+        type="button"
+        class="switch-btn"
+        @click="isLogin = !isLogin"
+      >Switch to {{isLogin ? 'Signup' : 'Login'}}</b-button>
+    </b-form>
   </div>
 </template>
 
@@ -37,7 +42,35 @@ export default {
     };
   },
   computed: {},
-  methods: {}
+  methods: {
+    submitForm() {
+      if (!this.isLogin) {
+        return this.register();
+      } else {
+        return this.login();
+      }
+    },
+    register() {
+      this.$store.dispatch("register", {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      });
+      this.name = "";
+      this.email = "";
+      this.password = "";
+      this.isLogin = true;
+    },
+    login() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
+      });
+      this.email = "";
+      this.password = "";
+      this.isLogin = true;
+    }
+  }
 };
 </script>
 
@@ -48,10 +81,11 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: rgb(117, 117, 117, 0.5);
+  padding: 0;
+  /* background: rgb(117, 117, 117, 0.5); */
 }
 .form {
-  height: 40vh;
+  height: 50vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -66,9 +100,19 @@ export default {
 .btn-danger {
   border-radius: 0;
   margin: 3px;
-  width: 30vw;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 10rem;
+}
+.switch-btn {
+  background: transparent;
+  color: black;
+  border: none;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 .input {
-  width: 28vw;
+  width: 30rem;
 }
 </style>

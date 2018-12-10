@@ -27,7 +27,7 @@ server.use(express.static(__dirname + '/public'))
 // you want to register auth routes before the gatekeeper or you wont ever get logged in
 let auth = require('./server-assets/auth/routes')
 server.use(auth.session)
-server.use('/account', auth.router)
+server.use('/auth', auth.router)
 
 // this allows users to get data when not logged in
 server.use('*', (req, res, next) => {
