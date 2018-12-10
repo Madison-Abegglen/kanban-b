@@ -48,6 +48,13 @@ export default new Vuex.Store({
           alert(error)
         })
     },
+    logout({ commit }) {
+      auth.delete('/logout')
+        .then(res => {
+          commit('setUser', {})
+          router.push({ name: 'home' })
+        })
+    },
     authenticate({ commit }) {
       auth.get('/authenticate')
         .then(res => {

@@ -7,7 +7,7 @@
       </h1>
     </div>
     <div class="col-4 nav-options">
-      <h6 class="txt-2">
+      <h6 class="txt-2" @click="logout">
         <i class="fas fa-user-circle" style="padding-right: 5px;"></i>logout
       </h6>
     </div>
@@ -21,7 +21,11 @@ export default {
     return {};
   },
   computed: {},
-  methods: {}
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
+  }
 };
 </script>
 
