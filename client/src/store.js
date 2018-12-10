@@ -9,8 +9,20 @@ let auth = Axios.create({
   withCredentials: true
 })
 
-let api = Axios.create({
-  baseURL: 'http://localhost:3000/api',
+let boards = Axios.create({
+  baseURL: 'http://localhost:3000/api/boards',
+  timeout: 3000,
+  withCredentials: true
+})
+
+let lists = Axios.create({
+  baseURL: 'http://localhost:3000/api/lists',
+  timeout: 3000,
+  withCredentials: true
+})
+
+let tasks = Axios.create({
+  baseURL: 'http://localhost:3000/api/tasks',
   timeout: 3000,
   withCredentials: true
 })
@@ -19,14 +31,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    boards: []
   },
   mutations: {
     setUser(state, newUser) {
       state.user = newUser
+    },
+    setBoards(state, boards) {
+      state.boards = boards
     }
   },
   actions: {
+    // ----- USER ACTIONS -----
     register({ commit }, creds) {
       auth.post('/register', creds)
         .then(res => {
@@ -62,6 +79,14 @@ export default new Vuex.Store({
         })
         .catch(error => {
           router.push({ name: 'home' })
+        })
+    },
+
+    // ----- BOARD ACTIONS -----
+    getBoards({ commit }, authorId) {
+      boards.get('/', authorId)
+        .then(res => {
+          commit('setBoards', res.data)
         })
     }
   }
