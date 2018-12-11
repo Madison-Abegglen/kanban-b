@@ -7,7 +7,7 @@
       </h1>
     </div>
     <div class="col-4 nav-options">
-      <h6 class="txt-2" @click="logout">
+      <h6 class="txt-2 logout" @click="logout">
         <i class="fas fa-user-circle" style="padding-right: 5px;"></i>logout
       </h6>
     </div>
@@ -38,6 +38,9 @@ export default {
   color: rgb(245, 245, 245);
   position: fixed;
   z-index: 2;
+}
+.logout:hover {
+  cursor: pointer;
 }
 .nav-options {
   display: flex;

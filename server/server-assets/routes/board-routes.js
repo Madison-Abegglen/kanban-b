@@ -3,7 +3,7 @@ const Boards = require('../models/board')
 
 // GET
 router.get('/', (req, res, next) => {
-  Boards.findOne({ authorId: req.session.uid })
+  Boards.find({ authorId: req.session.uid })
     .then(data => {
       res.send(data)
     })

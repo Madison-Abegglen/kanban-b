@@ -32,7 +32,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {},
-    boards: []
+    boards: [],
+    boardForm: false
   },
   mutations: {
     setUser(state, newUser) {
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
+    },
+    setBoardFM(state, bool) {
+      state.boardForm = bool.value
     }
   },
   actions: {
@@ -83,10 +87,23 @@ export default new Vuex.Store({
     },
 
     // ----- BOARD ACTIONS -----
+    boardFM({ commit }, bool) {
+      commit('setBoardFM', bool)
+    },
     getBoards({ commit }, authorId) {
       boards.get('/', authorId)
         .then(res => {
           commit('setBoards', res.data)
+        })
+    },
+    createBoard({ dispatch }, board) {
+      boards.post('/', board)
+        .then(res => {
+          let authorId = board.authorId
+          dispatch('getBoards', authorId)
+          dispatch('boardFM', {
+            value: false
+          })
         })
     }
   }
