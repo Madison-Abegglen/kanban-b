@@ -105,6 +105,12 @@ export default new Vuex.Store({
             value: false
           })
         })
+    },
+    deleteBoard({ dispatch }, payload) {
+      boards.delete('/' + payload.boardId)
+        .then(res => {
+          dispatch('getBoards', payload.authorId)
+        })
     }
   }
 })

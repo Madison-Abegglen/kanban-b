@@ -5,7 +5,7 @@
         <i class="fas fa-angle-double-right"></i>
         {{b.title}}
       </span>
-      <i class="far fa-trash-alt fa-xs"></i>
+      <i @click="deleteBoard(b._id)" class="far fa-trash-alt fa-xs"></i>
     </h2>
     <div class="divider"></div>
   </div>
@@ -19,11 +19,22 @@ export default {
   },
   props: ["b"],
   computed: {
+    user() {
+      return this.$store.state.user;
+    },
     boards() {
       return this.$store.state.boards;
     }
   },
-  methods: {}
+  methods: {
+    deleteBoard(boardId) {
+      document.getElementById("board").style.backgroundColor = "";
+      this.$store.dispatch("deleteBoard", {
+        boardId: boardId,
+        authorId: this.user._id
+      });
+    }
+  }
 };
 </script>
 
