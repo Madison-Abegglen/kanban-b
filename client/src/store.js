@@ -90,8 +90,8 @@ export default new Vuex.Store({
     boardFM({ commit }, bool) {
       commit('setBoardFM', bool)
     },
-    getBoards({ commit }, authorId) {
-      boards.get('/', authorId)
+    getBoards({ commit }) {
+      boards.get('/')
         .then(res => {
           commit('setBoards', res.data)
         })
@@ -100,7 +100,7 @@ export default new Vuex.Store({
       boards.post('/', board)
         .then(res => {
           let authorId = board.authorId
-          dispatch('getBoards', authorId)
+          dispatch('getBoards')
           dispatch('boardFM', {
             value: false
           })
@@ -109,7 +109,7 @@ export default new Vuex.Store({
     deleteBoard({ dispatch }, payload) {
       boards.delete('/' + payload.boardId)
         .then(res => {
-          dispatch('getBoards', payload.authorId)
+          dispatch('getBoards')
         })
     }
   }

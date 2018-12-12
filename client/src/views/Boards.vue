@@ -110,7 +110,7 @@ export default {
   height: 1.5px;
   width: 100%;
   background-color: black;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 .boards {

@@ -2,7 +2,9 @@
   <div class="col-10 offset-1 board">
     <h2 class="txt-3 board-c">
       <span>
-        <i class="fas fa-angle-double-right"></i>
+        <router-link class="link" :to="{name: 'boardV', params: {boardId: b._id}}">
+          <i class="fas fa-angle-double-right"></i>
+        </router-link>
         {{b.title}}
       </span>
       <i @click="deleteBoard(b._id)" class="far fa-trash-alt fa-xs"></i>
@@ -80,5 +82,11 @@ export default {
 .fa-trash-alt:hover {
   cursor: pointer;
   /* box-shadow: 0 0 2px 1px rgba(85, 73, 73, 0.8); */
+}
+.fa-angle-double-right:hover {
+  cursor: pointer;
+}
+.link {
+  color: black;
 }
 </style>
